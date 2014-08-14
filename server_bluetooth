@@ -1,0 +1,26 @@
+#include <SoftwareSerial.h>
+
+SoftwareSerial xander(10, 11); // TX, RX
+int ledpin=12; 
+int BluetoothData; 
+
+void setup() {
+  xander.begin(9600);
+  xander.println("Bluetooth On please press 1 or 0 blink LED ..");
+  pinMode(ledpin,OUTPUT);
+}
+
+void loop() {
+   if (xander.available()){
+BluetoothData=xander.read();
+   if(BluetoothData=='1'){   
+   digitalWrite(ledpin,1);
+   xander.println("LED  On D13 ON ! ");
+   }
+  if (BluetoothData=='0'){
+  digitalWrite(ledpin,0);
+   xander.println("LED  On D13 Off ! ");
+  }
+}
+delay(100);
+}
